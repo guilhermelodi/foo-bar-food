@@ -1,0 +1,10 @@
+INSERT INTO cuisine (name) values ('Chinesa');
+INSERT INTO cuisine (name) values ('Japonesa');
+INSERT INTO cuisine (name) values ('Mexicana');
+INSERT INTO cuisine (name) values ('Mineira');
+INSERT INTO cuisine (name) values ('Baiana');
+INSERT INTO cuisine (name) values ('Lanches');
+INSERT INTO cuisine (name) values ('Variada');
+INSERT INTO cuisine (name) values ('Hamburgueria');
+INSERT INTO cuisine (name) values ('Árabe');
+INSERT INTO cuisine (name) values ('Italiana');

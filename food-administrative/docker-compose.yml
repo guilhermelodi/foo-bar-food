@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mysql.foobarfood.administrative:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: foobar123
+      MYSQL_DATABASE: administrative
+    volumes:
+      - mysql.foobarfood.administrative:/var/lib/mysql
+volumes:
+  mysql.foobarfood.administrative:
