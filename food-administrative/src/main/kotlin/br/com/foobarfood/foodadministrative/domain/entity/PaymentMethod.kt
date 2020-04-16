@@ -1,6 +1,7 @@
 package br.com.foobarfood.foodadministrative.domain.entity
 
 import br.com.foobarfood.foodadministrative.domain.enums.PaymentType
+import br.com.foobarfood.foodadministrative.domain.request.PaymentMethodRequest
 import javax.persistence.Entity
 import javax.persistence.Column
 import javax.persistence.GeneratedValue
@@ -14,13 +15,18 @@ data class PaymentMethod (
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var id: Long,
+        var id: Long = 0,
 
         @Column(nullable = false)
-        var name: String,
+        var name: String = "",
 
         @Column(nullable = false)
         @Enumerated(EnumType.STRING)
-        var type: PaymentType
+        var type: PaymentType? = null
 
-)
+) {
+        fun copyFromRequest(paymentMethodRequest: PaymentMethodRequest) {
+                this.name = paymentMethodRequest.name
+                this.type = paymentMethodRequest.type
+        }
+}
