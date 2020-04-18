@@ -9,7 +9,6 @@ import io.swagger.annotations.ApiOperation
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
-import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -42,7 +41,9 @@ class PaymentMethodController (
 
     @PostMapping("/payment-methods")
     @ApiOperation("Adds new payment method")
-    fun addPaymentMethod(@Valid @RequestBody paymentMethodRequest: PaymentMethodRequest): ResponseEntity<Any> {
+    fun addPaymentMethod(@Valid @RequestBody paymentMethodRequest: PaymentMethodRequest): ResponseEntity<*> {
+        log.info("Adding new payment method, paymentMethodRequest=$paymentMethodRequest")
+
         val paymentMethod = paymentMethodService.add(paymentMethodRequest)
 
         val location = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -50,6 +51,28 @@ class PaymentMethodController (
                 .buildAndExpand(paymentMethod.id)
                 .toUri()
 
-        return ResponseEntity.created(location).build()
+        return ResponseEntity.created(location).build<Any>()
+    }
+
+    @PutMapping("/payment-methods/{id}")
+    @ApiOperation("Updates a payment method")
+    fun updatePaymentMethod(@PathVariable("id") id: Long,
+                            @Valid @RequestBody paymentMethodRequest: PaymentMethodRequest): ResponseEntity<*> {
+
+        log.info("Updating payment method, id= $id, paymentMethodRequest=$paymentMethodRequest")
+
+        paymentMethodService.update(id, paymentMethodRequest)
+
+        return ResponseEntity.ok().build<Any>()
+    }
+
+    @DeleteMapping("/payment-methods/{id}")
+    @ApiOperation("Deletes a payment method")
+    fun updatePaymentMethod(@PathVariable("id") id: Long): ResponseEntity<*> {
+        log.info("Deleting payment method, id= $id")
+
+        paymentMethodService.delete(id)
+
+        return ResponseEntity.ok().build<Any>()
     }
 }
